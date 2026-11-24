@@ -75,9 +75,26 @@ def find_missing_images(records, images_dir):
 
     for record in records:
         filename = record["image_id"] + ".jpg"
-        image_path = path(images_dir) / filename
+        image_path = Path(images_dir) / filename
 
         if not image_path.is_file():
             missing_images.append(filename)
     
-    return missing_images
+    return 
+ 
+    
+
+def add_image_paths(records, images_dir):
+    """
+    add the image file path to each record 
+    """
+    records_with_paths = []
+
+    for record in records:
+        filename = record["image_id"] + ".jpg"
+
+        updated_record = record.copy()
+        updated_record["image_path"] = str(Path(images_dir) / filename)
+        records_with_paths.append(updated_record)
+    
+    return records_with_paths
